@@ -23,33 +23,49 @@ struct QuizView: View {
     
     // MARK: Computed properties
     var body: some View {
-        
-        VStack {
-            Image(currentItem.imageName)
-                .resizable()
-                .scaledToFit()
-            HStack {
-                // Allow the user to input their guess
-                TextField("Enter The Name of The Item", text : $userGuess)
+        HStack{
+            // Left Side
+            VStack {
+                Image(currentItem.imageName)
+                    .resizable()
+                    .scaledToFit()
+                HStack {
+                    // Allow the user to input their guess
+                    TextField("Enter The Name of The Item", text : $userGuess)
+                    
+                    // Show Outcome (shows the string attached to each case in the enumeration
+                    Text(currentOutcome.rawValue)
+                    
+                    
+                }
                 
-                // Show Outcome (shows the string attached to each case in the enumeration
-                Text(currentOutcome.rawValue)
+                // Make it possible to check guess
+                Button {
+                    checkGuess()
+                } label: {
+                    Text("Submit")
+                }
                 
-                
+                // Pick new word
+                Button {
+                    newWord()
+                } label: {
+                    Text("New Word")
+                }
             }
             
-            // Make it possible to check guess
-            Button {
-                checkGuess()
-            } label: {
-                Text("Submit")
-            }
-            
-        // Pick new word
-            Button {
-                newWord()
-            } label: {
-                Text("New Word")
+            //Right Side
+            List(history) { currentResult in
+                HStack{
+                    Image(currentResult.item.imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50)
+                    Text(currentResult.item.word)
+                    Spacer()
+                    Text(currentResult.outcome.rawValue)
+                }
+                
             }
         }
         
