@@ -32,9 +32,9 @@ struct QuizView: View {
                 // Show Outcome (shows the string attached to each case in the enumeration
                 Text(currentOutcome.rawValue)
                 
-
+                
             }
-                        
+            
             // Make it possible to check guess
             Button {
                 checkGuess()
@@ -42,6 +42,12 @@ struct QuizView: View {
                 Text("Submit")
             }
             
+        // Pick new word
+            Button {
+                newWord()
+            } label: {
+                Text("New Word")
+            }
         }
         
     }
@@ -56,6 +62,12 @@ struct QuizView: View {
             currentOutcome = .incorrect
         }
         
+    }
+    
+    func newWord() {
+        currentItem = itemsToSpell.randomElement()!
+        userGuess = ""
+        currentOutcome = .undetermined
     }
 }
 
